@@ -1,6 +1,6 @@
 module github.com/kishantm/hcl2json
 
-go 1.19
+go 1.11
 
 require (
 	github.com/hashicorp/hcl/v2 v2.16.2
