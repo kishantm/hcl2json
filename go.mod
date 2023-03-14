@@ -1,4 +1,4 @@
-module github.com/tmccombs/hcl2json
+module github.com/kishantm/hcl2json
 
 go 1.19
 
