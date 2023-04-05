@@ -155,6 +155,10 @@ func (c *converter) convertBody(body *hclsyntax.Body) (jsonObj, lineObj, error) 
 		}
 	}
 
+	lcfg["line"] = body.SrcRange.Start.Line
+	lcfg["startIndex"] = body.SrcRange.Start.Column
+	lcfg["endIndex"] = body.SrcRange.End.Column
+
 	return cfg, lcfg, nil
 }
 
