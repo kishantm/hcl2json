@@ -18,7 +18,7 @@ type Options struct {
 
 func String(filename string) (map[string]interface{}, error) {
 	//buffer := bytes.NewBuffer([]byte{})
-	var options Options
+	options := Options{Simplify: true}
 
 	data := make(map[string]interface{})
 
