@@ -18,7 +18,7 @@ type Options struct {
 
 func String(filename string) (map[string]interface{}, error) {
 	//buffer := bytes.NewBuffer([]byte{})
-	options := Options{Simplify: true}
+	//options := Options{Simplify: true}
 
 	data := make(map[string]interface{})
 
@@ -36,7 +36,7 @@ func String(filename string) (map[string]interface{}, error) {
 	// }
 	// buffer.WriteByte('\n') // just in case it doesn't have an ending newline
 
-	converted, lineInfo, err := Bytes([]byte(filename), "", options)
+	converted, lineInfo, err := Bytes([]byte(filename), "", Options{Simplify: true})
 	if err != nil {
 
 		return nil, fmt.Errorf("failed to convert file: %w", err)
@@ -245,6 +245,13 @@ func (c *converter) convertExpression(expr hclsyntax.Expression) (ret interface{
 	lineInfo["endIndex"] = expr.StartRange().End.Column
 
 	line = lineInfo
+	
+	if c.options.Simplify {
+		value, err := expr.Value(&evalContext)
+		if err == nil {
+			return ctyjson.SimpleJSONValue{Value: value}, line, nil
+		}
+	}
 
 	switch value := expr.(type) {
 	case *hclsyntax.LiteralValueExpr:
