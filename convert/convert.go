@@ -142,18 +142,9 @@ func (c *converter) convertBody(body *hclsyntax.Body) (jsonObj, lineObj, error) 
 		blockConfig := bcfg[block.Type].(jsonObj)
 		lineCfg := blcfg[block.Type].(lineObj)
 		if _, present := cfg[block.Type]; !present {
-			#cfg[block.Type] = []jsonObj{blockConfig}
-			#lcfg[block.Type] = []lineObj{lineCfg}
 			cfg[block.Type] = blockConfig
 			lcfg[block.Type] = lineCfg
 		} else {
-			#list := cfg[block.Type].([]jsonObj)
-			#list = append(list, blockConfig)
-			#cfg[block.Type] = list
-
-			#lineList := lcfg[block.Type].([]lineObj)
-			#lineList = append(lineList, lineCfg)
-			#lcfg[block.Type] = lineList
 
 			list, ok := cfg[block.Type].([]jsonObj)
 			lineList, _ := lcfg[block.Type].([]lineObj)
@@ -164,7 +155,7 @@ func (c *converter) convertBody(body *hclsyntax.Body) (jsonObj, lineObj, error) 
 			}
 			list = append(list, blockConfig)
 			lineList = append(lineList, lineCfg)
-			
+
 			cfg[block.Type] = list
 			lcfg[block.Type] = lineList
 		}
@@ -260,7 +251,7 @@ func (c *converter) convertExpression(expr hclsyntax.Expression) (ret interface{
 	lineInfo["endIndex"] = expr.StartRange().End.Column
 
 	line = lineInfo
-	
+
 	if c.options.Simplify {
 		value, err := expr.Value(&evalContext)
 		if err == nil {
