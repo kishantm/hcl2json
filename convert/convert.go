@@ -150,8 +150,11 @@ func (c *converter) convertBody(body *hclsyntax.Body) (jsonObj, lineObj, error) 
 			lineList, _ := lcfg[block.Type].([]lineObj)
 
 			if !ok {
-				list = []jsonObj{}
-				lineList = []lineObj{}
+				json, _ := cfg[block.Type].(jsonObj)
+				line, _ := lcfg[block.Type].(lineObj)
+				
+				list = []jsonObj{json}
+				lineList = []lineObj{line}
 			}
 			list = append(list, blockConfig)
 			lineList = append(lineList, lineCfg)
